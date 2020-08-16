@@ -1,0 +1,34 @@
+{
+  "name": "s3-uploader",
+  "version": "1.0.0",
+  "description": "Package to upload compressed files to AWS S3",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuvraj2112/s3-uploader.git"
+  },
+  "keywords": [
+    "s3",
+    "aws",
+    "file",
+    "upload",
+    "pako",
+    "compressed",
+    "chunks",
+    "stream"
+  ],
+  "author": "yuvraj2112@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yuvraj2112/s3-uploader/issues"
+  },
+  "homepage": "https://github.com/yuvraj2112/s3-uploader#readme",
+  "dependencies": {
+    "aws-sdk": "^2.729.0",
+    "busboy": "^0.3.1",
+    "pako": "^1.0.11"
+  }
+}
