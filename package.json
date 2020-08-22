@@ -18,6 +18,8 @@
     "pako",
     "compressed",
     "chunks",
+    "form",
+    "multipart",
     "stream"
   ],
   "author": "yuvraj2112@gmail.com",
