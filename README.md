@@ -34,7 +34,9 @@ The method expects an object with the following settings:
    - region - string
    - accessKeyId - string
    - secretAccessKey - string
-(One of the s3_instance or awsCredential is required)
+  
+ (One of the s3_instance or awsCredential is required)
+ 
  - bucket - string - S3 Bucket to upload the file to
  - mimeFilter (optional) - function (mimetype, file_extension) <Returns: Boolean> - A function that will be passed file extension and mime. Can be overwritten to filter files and stop upload progress. Return <True> in case file is not supported.
  - compressed (optional) - Boolean - If using pako to compress. Default: false.
