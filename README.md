@@ -29,7 +29,7 @@ The module returns a promise. The result is an array of responses from S3 upon s
 ### S3-uploader method
 The method expects an object with the following settings:
  - request - Object - this is the incoming request object
- - s3_instance (optional) - <S3> - You may create an s3 instance using the aws-sdk and pass it as parameter
+ - s3_instance (optional) - < S3 > - You may create an s3 instance using the aws-sdk and pass it as parameter
  - awsCredential (optional) - Object - The object must contain valid credentials required to connect to S3 instance. It should contain the following properties
    - region - string
    - accessKeyId - string
@@ -38,7 +38,7 @@ The method expects an object with the following settings:
  (One of the s3_instance or awsCredential is required)
  
  - bucket - string - S3 Bucket to upload the file to
- - mimeFilter (optional) - function (mimetype, file_extension) <Returns: Boolean> - A function that will be passed file extension and mime. Can be overwritten to filter files and stop upload progress. Return <True> in case file is not supported.
+ - mimeFilter (optional) - function (mimetype, file_extension) <Returns: Boolean> - A function that will be passed file extension and mime. Can be overwritten to filter files and stop upload progress. Return < True > in case file is not supported.
  - compressed (optional) - Boolean - If using pako to compress. Default: false.
  - compressionRatio (optional) - Boolean - If using Pako, compression ratio to be used to decompress. Default: 1.
  - uploadUrlGen (optional) - function ({fields, mimetype, bucket, filename}) <Returns: string> - Method to programatically calculate the `key` to upload files to in S3. It will receive:
