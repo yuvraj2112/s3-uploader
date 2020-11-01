@@ -5,7 +5,7 @@ A node.js module to upload files to your S3 bucket. It also allows upload of fil
 
 # Install
 ```
-npm install s3-uploader
+npm install @losttracker/s3-uploader
 ```
 
 ## Example
