@@ -101,9 +101,9 @@ module.exports = ({request, s3_instance = null, awsCredentials = null, bucket = 
         reject(err);
       });
     });
+    request.pipe(busboy);
   } catch (err) {
     console.log(err);
     reject('Something went wrong');
   }
-  request.pipe(busboy);
 });

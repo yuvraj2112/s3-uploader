@@ -10,12 +10,17 @@ npm install @losttracker/s3-uploader
 
 ## Example
 ```
+const s3Uploader = require('@losttracker/s3-uploader');
+
 const awsCredentials = {
   "region" : "us-west-2",
   "accessKeyId" : "access_key_id",
   "secretAccessKey" : "secret_access_key",
 };
 const bucket = 'fileuploads_bucket';
+
+// to change file name or edit path. See uploadUrlGen below to know the list of
+// parameters passed to method
 const uploadUrlGen = (params) => {
   return 'trial_up/' + params.fields.formDataParam + params.filename;
 };
@@ -34,13 +39,13 @@ The method expects an object with the following settings:
    - region - string
    - accessKeyId - string
    - secretAccessKey - string
-  
+
  (One of the s3_instance or awsCredential is required)
- 
+
  - bucket - string - S3 Bucket to upload the file to
  - mimeFilter (optional) - function (mimetype, file_extension) <Returns: Boolean> - A function that will be passed file extension and mime. Can be overwritten to filter files and stop upload progress. Return < True > in case file is not supported.
  - compressed (optional) - Boolean - If using pako to compress. Default: false.
- - compressionRatio (optional) - Boolean - If using Pako, compression ratio to be used to decompress. Default: 1.
+ - compressionRatio (optional) - Number (1-9) - If using Pako, compression ratio to be used to decompress. Default: 1.
  - uploadUrlGen (optional) - function ({fields, mimetype, bucket, filename}) <Returns: string> - Method to programatically calculate the `key` to upload files to in S3. It will receive:
    - fields - Object - the fields parameters appended to formdata as an object with names as keys
    - mimetype - string - Calculated mimetype of the file being uploaded
@@ -49,4 +54,3 @@ The method expects an object with the following settings:
  - maxSize (optional) - Integer - Max file size to allow upload of. Default: null (unlimited)
  - s3UploadParams (optional) - object - Any extra settings to be passed to the s3.upload method while uploading. Example: Metadata. For more information see: https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#upload-property
  - busboyParams (optional) - object - Any extra settings to be passed to the busboy constructor. Example: HWM. For more information see: https://www.npmjs.com/package/busboy#busboy-methods
- 
