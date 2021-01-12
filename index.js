@@ -7,7 +7,6 @@ const pako = require('pako');
 module.exports = ({request, s3_instance = null, awsCredentials = null, bucket = '', mimeFilter = null, compressed = false, compressionRatio = 1, uploadUrlGen = null, maxSize = null, s3UploadParams = {}, busboyParams = {}} = {}) => new Promise((resolve, reject) => {
   try {
     const paramsInvalid = paramChecker(request, s3_instance, awsCredentials, bucket, compressed, compressionRatio);
-    console.log('paramsInvalid', paramsInvalid);
     if (paramsInvalid) {
       reject(Error(paramsInvalid));
       return;
@@ -93,7 +92,6 @@ module.exports = ({request, s3_instance = null, awsCredentials = null, bucket = 
       }
     });
     busboy.on('finish', () => {
-      console.log('Finito');
       Promise.all(fileUploadPromise).then((data) => {
         resolve(data);
       })
