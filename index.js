@@ -20,15 +20,15 @@ module.exports = ({request, s3_instance = null, awsCredentials = null, bucket = 
     });
     busboy.on('file', async (fieldname, file, filename, encoding, mimetype) => {
       // to cover for the chrome's bug of incorrect mimetype
-      // mimetype = mimetype === 'audio/mp3' ? 'audio/mpeg' : mimetype;
+      const fileMime = mimetype === 'audio/mp3' ? 'audio/mpeg' : mimetype;
       const extension = filename.split('.')[filename.split('.').length - 1];
-      const mimeUnsupported = mimeFilter ? mimeFilter(mimetype, extension.toLowerCase()) : false;
+      const mimeSupported = mimeFilter ? mimeFilter(fileMime, extension.toLowerCase()) : true;
       const contentLength = Number(request.headers['content-length']);
-      if (mimeUnsupported) {
-        reject(Error('Mime type not supported'));
+      if (!mimeSupported) {
+        reject(Error('File type not supported'));
         return;
       }
-      if (maxSize && contentLength > maxSize) {
+      if (maxSize > 0 && contentLength > maxSize) {
         reject(Error('File size too long'));
         return;
       }
@@ -60,7 +60,7 @@ module.exports = ({request, s3_instance = null, awsCredentials = null, bucket = 
             if (err) {
               rej(err);
             } else {
-              res({ ...data, originalname: filename, mimetype, fields });
+              res({ ...data, originalname: filename, fileMime, fields });
             }
           });
         }));
@@ -83,7 +83,7 @@ module.exports = ({request, s3_instance = null, awsCredentials = null, bucket = 
           }
         });
       }
-      const uploadKey = uploadUrlGen ? await uploadUrlGen({fields, mimetype, bucket: Bucket, filename}) : fields.uploadUrl;
+      const uploadKey = uploadUrlGen ? await uploadUrlGen({fields, fileMime, bucket: Bucket, filename}) : fields.uploadUrl;
       if (uploadKey) {
         uploader(uploadKey);
       } else {

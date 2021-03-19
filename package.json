@@ -1,6 +1,6 @@
 {
   "name": "@losttracker/s3-uploader",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Package to upload compressed files to AWS S3",
   "main": "index.js",
   "scripts": {

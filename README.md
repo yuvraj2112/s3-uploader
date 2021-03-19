@@ -32,25 +32,23 @@ const uploadDetails = await s3Uploader({request: req, bucket, awsCredentials, up
 The module returns a promise. The result is an array of responses from S3 upon successful file uploads.
 
 ### S3-uploader method
-The method expects an object with the following settings:
- - request - Object - this is the incoming request object
- - s3_instance (optional) - < S3 > - You may create an s3 instance using the aws-sdk and pass it as parameter
- - awsCredential (optional) - Object - The object must contain valid credentials required to connect to S3 instance. It should contain the following properties
-   - region - string
-   - accessKeyId - string
-   - secretAccessKey - string
+The method accepts an object with the following keys:
+| Name      | Type    | Parameters/Properties       | Description |
+|-----------|---------|-----------------------------|-------------|
+| Request   | Object  | -                           | The incoming request object|
+|s3_instance* | <S3 Object> | -                       | You can create an s3 instance using the aws-sdk and pass it as a parameter |
+|awsCredential* | Object | region,  accessKeyId, secretAccessKey | The object must contain valid credentials required to connect to S3 instance |
+| bucket    | string   | -                          | Valid S3 Bucket to upload the file to |
+| mimeFilter | Method  | (mimetype, file_extension) <Return:bool>   | A method that will be passed mime and file extension. Can be used to filter files and stop upload progress. Return < True > when file is supported. |
+| compressed | boolean | -                          | If using pako to compress. Default: false. |
+| compressionRatio | number (1-9) | -                          | If using Pako, compression ratio to be used. Default: 1. |
+| uploadUrlGen | Method | ({fields**, mimetype, bucket, filename}) <Returns: string> | This method can be used to programatically calculate the `key` to upload files to in your S3 bucket |
+| maxSize   | number   | -                          | The maximum file size that can be uploaded. Default: null (unlimited) |
+| s3UploadParams | Object | -                       | Any additional settings to be passed to the s3.upload method while uploading. Example: Metadata. For more information see: https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#upload-property |
+| busboyParams | Object | -                         | Any additional settings to be passed to the busboy constructor. Example: HWM. For more information see: https://www.npmjs.com/package/busboy#busboy-methods |
 
- (One of the s3_instance or awsCredential is required)
+_* Any one of these 2 parameters is necessary_
 
- - bucket - string - S3 Bucket to upload the file to
- - mimeFilter (optional) - function (mimetype, file_extension) <Returns: Boolean> - A function that will be passed file extension and mime. Can be overwritten to filter files and stop upload progress. Return < True > in case file is not supported.
- - compressed (optional) - Boolean - If using pako to compress. Default: false.
- - compressionRatio (optional) - Number (1-9) - If using Pako, compression ratio to be used to decompress. Default: 1.
- - uploadUrlGen (optional) - function ({fields, mimetype, bucket, filename}) <Returns: string> - Method to programatically calculate the `key` to upload files to in S3. It will receive:
-   - fields - Object - the fields parameters appended to formdata as an object with names as keys
-   - mimetype - string - Calculated mimetype of the file being uploaded
-   - bucket - string - S3 bucket passed originally
-   - filename - string - Filename received from busboy
- - maxSize (optional) - Integer - Max file size to allow upload of. Default: null (unlimited)
- - s3UploadParams (optional) - object - Any extra settings to be passed to the s3.upload method while uploading. Example: Metadata. For more information see: https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#upload-property
- - busboyParams (optional) - object - Any extra settings to be passed to the busboy constructor. Example: HWM. For more information see: https://www.npmjs.com/package/busboy#busboy-methods
+_**it contains the parameters appended to formdata as an object_
+
+Please contact me on **yuvraj2112@gmail.com** for any suggestions!
